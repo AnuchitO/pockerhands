@@ -219,3 +219,52 @@ func TestHavingFilter(t *testing.T) {
 	assert.Equal(t, actual, expected)
 
 }
+
+func TestStraightFlushWinFourOfAkind(t *testing.T) {
+	sf := []Card{
+		Card{Face: _2, Suit: C},
+		Card{Face: _3, Suit: C},
+		Card{Face: _4, Suit: C},
+		Card{Face: _5, Suit: C},
+		Card{Face: _6, Suit: C},
+	}
+
+	fok := []Card{
+		Card{Face: _2, Suit: C},
+		Card{Face: _2, Suit: S},
+		Card{Face: _2, Suit: D},
+		Card{Face: _2, Suit: H},
+		Card{Face: K, Suit: C},
+	}
+
+	actual := Duel(sf, fok)
+
+	assert.Equal(t, actual, "straight flush > four of a kind")
+}
+
+func TestGetRankStraightFlush(t *testing.T) {
+	h := []Card{
+		Card{Face: _2, Suit: C},
+		Card{Face: _3, Suit: C},
+		Card{Face: _4, Suit: C},
+		Card{Face: _5, Suit: C},
+		Card{Face: _6, Suit: C},
+	}
+
+	actual := GetRank(h)
+
+	assert.Equal(t, actual, StraightFlush)
+}
+func TestGetRankFourOfAKind(t *testing.T) {
+	h := []Card{
+		Card{Face: _2, Suit: C},
+		Card{Face: _2, Suit: S},
+		Card{Face: _2, Suit: D},
+		Card{Face: _2, Suit: H},
+		Card{Face: K, Suit: C},
+	}
+
+	actual := GetRank(h)
+
+	assert.Equal(t, actual, FourOfAKind)
+}

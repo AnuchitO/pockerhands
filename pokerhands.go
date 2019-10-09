@@ -1,5 +1,9 @@
 package pokerhands
 
+import (
+	"fmt"
+)
+
 type Face int
 
 const (
@@ -47,6 +51,69 @@ func Highest(hand []Card) Card {
 	return c
 }
 
+type Rank int
+
+const (
+	_ Rank = iota
+	Pair
+	TwoPairs
+	ThreeOfAKind
+	Straight
+	Flush
+	FullHouse
+	FourOfAKind
+	StraightFlush
+)
+
+var ranks = [...]string{
+	"no rank",
+	"pair",
+	"two pairs",
+	"three of a kind",
+	"straight",
+	"flush",
+	"full house",
+	"four of a kind",
+	"straight flush",
+}
+
+func (r Rank) String() string {
+	return ranks[r]
+}
+
+func GetRank(hand []Card) Rank {
+	m := map[Rank]func(hand []Card) bool{
+		StraightFlush: IsStraightFlush,
+		FourOfAKind:   IsRankFourOfAKind,
+		FullHouse:     IsRankFullHouse,
+		Flush:         IsFlush,
+		Straight:      IsStraight,
+		ThreeOfAKind:  IsRankThreeOfAKind,
+		TwoPairs:      IsRankTwoPairs,
+		Pair:          IsRankPair,
+	}
+
+	for r, isRank := range m {
+		if isRank(hand) {
+			return r
+		}
+	}
+
+	return 0
+}
+
+func Duel(a, b []Card) string {
+	rankB := GetRank(b)
+
+	rankA := GetRank(a)
+
+	if rankA > rankB {
+		return fmt.Sprintf("%s > %s", rankA, rankB)
+	}
+
+	return fmt.Sprintf("a:%s,  b:%s", rankA, rankB)
+}
+
 func IsStraightFlush(hand []Card) bool {
 	return IsStraight(hand) && IsFlush(hand)
 }
@@ -76,6 +143,7 @@ func IsFlush(hand []Card) bool {
 func IsRankPair(hand []Card) bool {
 	return len(FindRepeats(2, hand)) == 2
 }
+
 func IsRankTwoPairs(hand []Card) bool {
 	return len(FindRepeats(2, hand)) == 4
 }
