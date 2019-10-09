@@ -82,20 +82,23 @@ func (r Rank) String() string {
 }
 
 func GetRank(hand []Card) Rank {
-	m := map[Rank]func(hand []Card) bool{
-		StraightFlush: IsStraightFlush,
-		FourOfAKind:   IsRankFourOfAKind,
-		FullHouse:     IsRankFullHouse,
-		Flush:         IsFlush,
-		Straight:      IsStraight,
-		ThreeOfAKind:  IsRankThreeOfAKind,
-		TwoPairs:      IsRankTwoPairs,
-		Pair:          IsRankPair,
+	tuples := []struct {
+		r  Rank
+		is func(hand []Card) bool
+	}{
+		{StraightFlush, IsStraightFlush},
+		{FourOfAKind, IsFourOfAKind},
+		{FullHouse, IsFullHouse},
+		{Flush, IsFlush},
+		{Straight, IsStraight},
+		{ThreeOfAKind, IsThreeOfAKind},
+		{TwoPairs, IsTwoPairs},
+		{Pair, IsPair},
 	}
 
-	for r, isRank := range m {
-		if isRank(hand) {
-			return r
+	for _, t := range tuples {
+		if t.is(hand) {
+			return t.r
 		}
 	}
 
@@ -140,24 +143,24 @@ func IsFlush(hand []Card) bool {
 	return true
 }
 
-func IsRankPair(hand []Card) bool {
+func IsPair(hand []Card) bool {
 	return len(FindRepeats(2, hand)) == 2
 }
 
-func IsRankTwoPairs(hand []Card) bool {
+func IsTwoPairs(hand []Card) bool {
 	return len(FindRepeats(2, hand)) == 4
 }
 
-func IsRankThreeOfAKind(hand []Card) bool {
+func IsThreeOfAKind(hand []Card) bool {
 	return len(FindRepeats(3, hand)) == 3
 }
 
-func IsRankFourOfAKind(hand []Card) bool {
+func IsFourOfAKind(hand []Card) bool {
 	return len(FindRepeats(4, hand)) == 4
 }
 
-func IsRankFullHouse(hand []Card) bool {
-	return IsRankThreeOfAKind(hand) && IsRankPair(hand)
+func IsFullHouse(hand []Card) bool {
+	return IsThreeOfAKind(hand) && IsPair(hand)
 }
 
 func FindRepeats(r int, hand []Card) []Card {

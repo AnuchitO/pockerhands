@@ -48,7 +48,7 @@ func TestFindRepeats(t *testing.T) {
 	assert.Equal(t, actual, expected)
 }
 
-func TestIsRankPair(t *testing.T) {
+func TestIsPair(t *testing.T) {
 	hand := []Card{
 		Card{Face: _2, Suit: C},
 		Card{Face: _2, Suit: S},
@@ -57,12 +57,12 @@ func TestIsRankPair(t *testing.T) {
 		Card{Face: K, Suit: C},
 	}
 
-	actual := IsRankPair(hand)
+	actual := IsPair(hand)
 
 	assert.True(t, actual)
 }
 
-func TestIsRankTwoPairs(t *testing.T) {
+func TestIsTwoPairs(t *testing.T) {
 	hand := []Card{
 		Card{Face: _2, Suit: C},
 		Card{Face: _2, Suit: S},
@@ -71,12 +71,12 @@ func TestIsRankTwoPairs(t *testing.T) {
 		Card{Face: K, Suit: C},
 	}
 
-	actual := IsRankTwoPairs(hand)
+	actual := IsTwoPairs(hand)
 
 	assert.True(t, actual)
 }
 
-func TestIsRankThreeOfAKind(t *testing.T) {
+func TestIsThreeOfAKind(t *testing.T) {
 	hand := []Card{
 		Card{Face: _2, Suit: C},
 		Card{Face: _2, Suit: S},
@@ -85,12 +85,12 @@ func TestIsRankThreeOfAKind(t *testing.T) {
 		Card{Face: K, Suit: C},
 	}
 
-	actual := IsRankThreeOfAKind(hand)
+	actual := IsThreeOfAKind(hand)
 
 	assert.True(t, actual)
 }
 
-func TestIsRankFourOfAKind(t *testing.T) {
+func TestIsFourOfAKind(t *testing.T) {
 	hand := []Card{
 		Card{Face: _2, Suit: C},
 		Card{Face: _2, Suit: S},
@@ -99,12 +99,12 @@ func TestIsRankFourOfAKind(t *testing.T) {
 		Card{Face: K, Suit: C},
 	}
 
-	actual := IsRankFourOfAKind(hand)
+	actual := IsFourOfAKind(hand)
 
 	assert.True(t, actual)
 }
 
-func TestIsRankFullHouse(t *testing.T) {
+func TestIsFullHouse(t *testing.T) {
 	hand := []Card{
 		Card{Face: _2, Suit: C},
 		Card{Face: _2, Suit: S},
@@ -113,7 +113,7 @@ func TestIsRankFullHouse(t *testing.T) {
 		Card{Face: K, Suit: C},
 	}
 
-	actual := IsRankFullHouse(hand)
+	actual := IsFullHouse(hand)
 
 	assert.True(t, actual)
 }
