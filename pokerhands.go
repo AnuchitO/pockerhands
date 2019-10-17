@@ -66,15 +66,14 @@ const (
 )
 
 var ranks = [...]string{
-	"no rank",
-	"pair",
-	"two pairs",
-	"three of a kind",
-	"straight",
-	"flush",
-	"full house",
-	"four of a kind",
-	"straight flush",
+	Pair:          "pair",
+	TwoPairs:      "two pairs",
+	ThreeOfAKind:  "three of a kind",
+	Straight:      "straight",
+	Flush:         "flush",
+	FullHouse:     "full house",
+	FourOfAKind:   "four of a kind",
+	StraightFlush: "straight flush",
 }
 
 func (r Rank) String() string {
